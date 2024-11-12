@@ -51,16 +51,19 @@ def readFiltrado(filtro, arquivosTreinos, linha, medida):
         with open(arquivo, "r", encoding="utf-8") as file:
             conteudo = file.read()
             if linha in conteudo:
-                filtroStr = conteudo[conteudo.index(linha):]
-                filtroStr = filtroStr.split(":")[1].strip()
-                filtroStr = filtroStr.split()[0]
-                valorFiltrado = float(filtroStr.replace(medida, "").strip())
-                
-            if valorFiltrado >= filtro:
-                print(f"\nArquivo: {arquivo}") 
-                print(conteudo)
-                print("-" * 30)
-                file.close()  
+                try:
+                    filtroStr = conteudo[conteudo.index(linha):]
+                    filtroStr = filtroStr.split(":")[1].strip()
+                    filtroStr = filtroStr.split()[0]
+                    valorFiltrado = float(filtroStr.replace(medida, "").strip())
+                    
+                    if valorFiltrado >= filtro:
+                        print(f"\nArquivo: {arquivo}") 
+                        print(conteudo)
+                        print("-" * 30)
+                        file.close()  
+                except ValueError:
+                    print("Erro em processar o valor do arquivo")    
 
 
 #obs: tlvz eu consiga juntar o update com o atualizarArquivo
