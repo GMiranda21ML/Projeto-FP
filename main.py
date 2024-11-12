@@ -91,7 +91,9 @@ def lerMetas(titulo,data):
             conteudo=file.read()
             print(conteudo)
     except FileNotFoundError:
-        print('Esse arquivo não existe')        
+        print('Esse arquivo não existe')  
+
+  
 
 treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "CondicoesClimaticas":[]}
 
@@ -235,16 +237,24 @@ Digite 5 para alterar as condições climaticas""")
             limparTela()
 
         case 5:
-            opção=input('digite 1 para armazenar e 2 para ler')
+            opção=input('DIGITE: \n 1-CREATE \n 2-LEITURA ')
             if(opção=='1'):
-                titulo='meta'
-                data=input('digite uma data')
-                meta=input('digite sua meta')
+                titulo='Meta'
+                data=input('Digite uma Data ')
+                meta=input('Digite sua Meta ')
                 cadastroMetas(titulo,data,meta)
             elif(opção=='2'):
-                 titulo='meta'
-                 data=input('digite uma data')
+                 titulo='Meta'
+                 data=input('digite uma data ')
                  lerMetas(titulo,data)
+                 opção=input('Sua Meta foi concluida?(digite s/n) ').lower()
+                 if(opção=='s'):
+                    os.remove(f'{titulo}{data}.txt')
+                    print(f'A meta da Data:{data} foi Concluido')  
+                 elif(opção=='n'):
+                     print('Meta ainda não concluida')
+                 else:
+                    print('digito errado tente novamente')          
             else:
                 print("digito errado")
         
