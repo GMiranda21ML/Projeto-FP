@@ -79,6 +79,13 @@ def delete():
     else:
         print("Arquivo não encontrado! por favor tente novamente")
 
+
+def cadastroMetas(titulo,data,meta):
+    with open(f'{titulo} {data}.txt','w') as file:
+          file.write(f"{meta}")
+          file.close()
+
+
 treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "CondicoesClimaticas":[]}
 
 os.system("cls")
@@ -88,6 +95,7 @@ Digite 1 para adicionar um registro de treino e competição
 Digite 2 para visualizar um registro de treino e competição
 Digite 3 para atualizar um registro de treino e competição
 Digite 4 para excluir um registro de treino e competição
+Digite 5 para registrar/visualizar suas metas;
 Digite 6 para vê sugestões de treinos aleatorios
 Digite 0 para encerrar o programa""")
     opcao = int(input("Digite sua opção: "))
