@@ -81,10 +81,14 @@ def delete():
 
 
 def cadastroMetas(titulo,data,meta):
-    with open(f'{titulo} {data}.txt','w') as file:
+    with open(f'{titulo}{data}.txt','w') as file:
           file.write(f"{meta}")
           file.close()
 
+def lerMetas(titulo,data):
+    with open(f"{titulo}{data}.txt","r") as file:
+        conteudo=file.read()
+        print(conteudo)
 
 treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "CondicoesClimaticas":[]}
 
@@ -227,7 +231,20 @@ Digite 5 para alterar as condições climaticas""")
             
             limparTela()
 
-
+        case 5:
+            opção=input('digite 1 para armazenar e 2 para ler')
+            if(opção=='1'):
+                titulo='meta'
+                data=input('digite uma data')
+                meta=input('digite sua meta')
+                cadastroMetas(titulo,data,meta)
+            elif(opção=='2'):
+                 titulo='meta'
+                 data=input('digite uma data')
+                 lerMetas(titulo,data)
+            else:
+                print("digito errado")
+        
         case 6:
             os.system("cls")
             
@@ -266,6 +283,6 @@ Digite 5 para alterar as condições climaticas""")
                     print("Opção incorreta, por favor digite novamente!")
             
             limparTela()
-            
+
         case _:
             print("Opção invalido, por favor digite novamente!")
