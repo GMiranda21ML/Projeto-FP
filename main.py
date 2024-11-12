@@ -197,13 +197,13 @@ Digite [0] para encerrar o programa
                 if os.path.isfile(nomeArquivo):
 
                     print(f"""
-    {("="*70)}
-    Digite [1] para alterar a data
-    Digite [2] para alterar a distancia percorrida
-    Digite [3] para alterar o tempo
-    Digite [4] para alterar a localização
-    Digite [5] para alterar as condições climaticas
-    {("="*70)}""")
+{("="*70)}
+Digite [1] para alterar a data
+Digite [2] para alterar a distancia percorrida
+Digite [3] para alterar o tempo
+Digite [4] para alterar a localização
+Digite [5] para alterar as condições climaticas
+{("="*70)}""")
                     opcaoUpdate = int(input("Digite a opção que você deseja alterar: "))
 
                     conteudo = lerArquivo(nomeArquivo)
@@ -260,10 +260,10 @@ Digite [0] para encerrar o programa
             case 5:
                 os.system("cls")
                 opção=input(f"""
-    {("="*70)}
-    Digite [1] para criar uma meta
-    Digite [2] para ler a meta atual
-    {("="*70)}""")
+{("="*70)}
+Digite [1] para criar uma meta
+Digite [2] para ler a meta atual
+{("="*70)}""")
                 if(opção=='1'):
                     titulo='Meta'
                     data=input('Digite uma Data ')
