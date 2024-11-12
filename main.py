@@ -137,3 +137,46 @@ Digite 5 para alterar as condições climaticas""")
             delete()
             
             limparTela()
+
+
+        case 6:
+            os.system("cls")
+            
+            caminhoDaPasta = "treinosAleatorios"
+
+            listaAleatorios =  selecionartudo("treinoAleatorio", ".txt", caminhoDaPasta)
+            
+            for treinosAleatorios in listaAleatorios:
+                caminhoArquivo = os.path.join(caminhoDaPasta, treinosAleatorios) #caminhoDaPasta + "/" + treinoAleatorio
+                with open(caminhoArquivo, "r", encoding="UTF-8") as file:
+                    print(f"\nArquivo: {treinosAleatorios}")
+                    print(file.read())
+                    print("-" * 30)
+                    file.close() 
+            
+            while True:
+                print("Você fez algum dos treinos aleatorios?")
+                fazer = int(input("Se sim, digite o número de 1 a 5 para marcar como feito, se nao, digite 0: "))
+                
+                if 1 <= fazer <= 5:
+                    treinoFeito = "treinoAleatorio" + str(fazer) + ".txt"
+                    arquivoCaminho = os.path.join(caminhoDaPasta, treinoFeito)
+                    
+                    conteudo = lerArquivo(arquivoCaminho)
+
+                    update(conteudo, "Status: ", "feito✔️", "")
+
+                    atualizarArquivo(arquivoCaminho, conteudo)
+                    
+                    print(f"{treinoFeito} foi atualizado como feito!!")
+                    break
+
+                elif fazer == 0:
+                    break
+                else:
+                    print("Opção incorreta, por favor digite novamente!")
+            
+            limparTela()
+            
+        case _:
+            print("Opção invalido, por favor digite novamente!")
