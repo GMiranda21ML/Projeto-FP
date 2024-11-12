@@ -1,3 +1,84 @@
+import os
+
+def formatacao(variavel):
+    return variavel.replace("/", "")
+
+
+def limparTela():
+    input("Digite qualquer tecla para voltar ao menu: ")
+    os.system("cls")
+
+
+def create(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas):
+    with open(f"Treino{dataFormatada}.txt", "w", encoding="utf-8") as file:
+        file.write(f"""Data: {data}
+Distancia percorrida: {distanciaPercorrida}km
+Tempo: {tempo}min
+Localização: {localizacao}
+Condições climaticas: {condicoesClimaticas}
+""")
+
+
+def selecionartudo(comeco, fim, caminho):
+    arquivosTreinos = []
+    for arquivo in os.listdir(caminho):
+        if arquivo.startswith(comeco) and arquivo.endswith(fim): #and os.path.isfile(arquivo):
+            arquivosTreinos.append(arquivo)
+    return arquivosTreinos
+
+
+def read():
+    for arquivo in arquivosTreinos:
+        with open(arquivo, "r", encoding="utf-8") as file:
+            print(f"\nArquivo: {arquivo}")
+            print(file.read())
+            print("-" * 30)
+            file.close()
+
+
+def readFiltrado(filtro, arquivosTreinos, linha, medida): 
+    for arquivo in arquivosTreinos:
+        with open(arquivo, "r", encoding="utf-8") as file:
+            conteudo = file.read()
+            if linha in conteudo:
+                filtroStr = conteudo[conteudo.index(linha):]
+                filtroStr = filtroStr.split(":")[1].strip()
+                filtroStr = filtroStr.split()[0]
+                valorFiltrado = float(filtroStr.replace(medida, "").strip())
+                
+            if valorFiltrado >= filtro:
+                print(f"\nArquivo: {arquivo}") 
+                print(conteudo)
+                print("-" * 30)
+                file.close()  
+
+
+#obs: tlvz eu consiga juntar o update com o atualizarArquivo
+def update(conteudo, formatacao, valorProUpdate, medida): 
+    for i in range(len(conteudo)):
+        if formatacao in conteudo[i]:
+            conteudo[i] = f"{formatacao}{valorProUpdate}{medida}\n"
+    return conteudo
+
+
+def atualizarArquivo(nomeArquivo, conteudo):
+    with open(nomeArquivo, "w", encoding="utf-8") as file:
+        file.writelines(conteudo)
+
+
+def lerArquivo(nomeArquivo):
+    with open(nomeArquivo, "r", encoding="UTF-8") as file:
+        conteudo = file.readlines()
+    return conteudo
+
+
+def delete():
+    if os.path.exists(f"Treino{dataNomeArquivo}.txt"):
+        os.remove(f"Treino{dataNomeArquivo}.txt")
+        print("Arquivo excluido com sucesso!")
+    else:
+        print("Arquivo não encontrado! por favor tente novamente")
+
 treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "CondicoesClimaticas":[]}
 
 os.system("cls")
