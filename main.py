@@ -113,14 +113,16 @@ treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "C
 os.system("cls")
 while True:
     mensagem = textoInicio()
-    print("""
-Digite 1 para adicionar um registro de treino e competição
-Digite 2 para visualizar um registro de treino e competição
-Digite 3 para atualizar um registro de treino e competição
-Digite 4 para excluir um registro de treino e competição
-Digite 5 para registrar/visualizar suas metas;
-Digite 6 para vê sugestões de treinos aleatorios
-Digite 0 para encerrar o programa""")
+    print(f"""
+{("="*70)}        
+Digite [1] para adicionar um registro de treino e competição
+Digite [2] para visualizar um registro de treino e competição
+Digite [3] para atualizar um registro de treino e competição
+Digite [4] para excluir um registro de treino e competição
+Digite [5] para registrar/visualizar suas metas;
+Digite [6] para vê sugestões de treinos aleatorios
+Digite [0] para encerrar o programa
+{("="*70)}""")
     opcao = int(input("Digite sua opção: "))
 
     match opcao:
@@ -192,11 +194,11 @@ Digite 0 para encerrar o programa""")
             if os.path.isfile(nomeArquivo):
 
                 print("""
-Digite 1 para alterar a data
-Digite 2 para alterar a distancia percorrida
-Digite 3 para alterar o tempo
-Digite 4 para alterar a localização
-Digite 5 para alterar as condições climaticas""")
+Digite [1] para alterar a data
+Digite [2] para alterar a distancia percorrida
+Digite [3] para alterar o tempo
+Digite [4] para alterar a localização
+Digite [5] para alterar as condições climaticas""")
                 opcaoUpdate = int(input("Digite a opção que você deseja alterar: "))
 
                 conteudo = lerArquivo(nomeArquivo)
