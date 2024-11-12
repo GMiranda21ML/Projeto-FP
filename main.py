@@ -86,9 +86,12 @@ def cadastroMetas(titulo,data,meta):
           file.close()
 
 def lerMetas(titulo,data):
-    with open(f"{titulo}{data}.txt","r") as file:
-        conteudo=file.read()
-        print(conteudo)
+    try:
+        with open(f"{titulo}{data}.txt","r") as file:
+            conteudo=file.read()
+            print(conteudo)
+    except FileNotFoundError:
+        print('Esse arquivo não existe')        
 
 treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "CondicoesClimaticas":[]}
 
