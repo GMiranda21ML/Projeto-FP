@@ -69,3 +69,71 @@ Digite 0 para encerrar o programa""")
                     print("Opção invalida, por favor, digite-a corretamente!")
                 
             limparTela()
+
+
+        case 3:
+            os.system("cls")
+            dataArquivo = input("Digite a data do treino que você deseja alterar: ")
+
+            dataArquivo = formatacao(dataArquivo)
+            nomeArquivo = f"Treino{dataArquivo}.txt"
+            if os.path.isfile(nomeArquivo):
+
+                print("""
+Digite 1 para alterar a data
+Digite 2 para alterar a distancia percorrida
+Digite 3 para alterar o tempo
+Digite 4 para alterar a localização
+Digite 5 para alterar as condições climaticas""")
+                opcaoUpdate = int(input("Digite a opção que você deseja alterar: "))
+
+                conteudo = lerArquivo(nomeArquivo)
+
+                match opcaoUpdate:
+                    case 1:
+                        novaData = input("Digite a nova data: ")
+                        
+                        conteudo = update(conteudo, "Data: ", novaData, "")
+
+                    case 2: 
+                        novaDistanciaPercorrida = float(input("Digite a nova distancia percorrida: "))
+                        
+                        conteudo = update(conteudo, "Distancia percorrida: ", novaDistanciaPercorrida, "km")
+
+                    case 3: 
+                        novoTempo = int(input("Digite o novo tempo: "))
+
+                        conteudo = update(conteudo, "Tempo: ", novoTempo, "min")
+                    
+                    case 4:
+                        novaLocalizacao = input("Digite a nova localização: ")
+                        
+                        conteudo = update(conteudo, "Localização: ", novaLocalizacao, "")
+                    
+                    case 5:
+                        novaCondicaoClimatica = input("Digite uma nova condição climatica: ")
+                        
+                        conteudo = update(conteudo, "Condições climaticas: ", novaCondicaoClimatica, "")
+                
+                atualizarArquivo(nomeArquivo, conteudo)
+
+                if opcaoUpdate == 1:
+                    os.rename(nomeArquivo, f"Treino{formatacao(novaData)}.txt")
+
+                print("Alteração realizada com sucesso!")
+            
+            else:
+                print("Arquivo não localizado, por favor tente novamente")
+        
+            limparTela()
+
+
+        case 4:
+            os.system("cls")
+            dataNomeArquivo = input("Digite a data do treino que você deseja excluir: ")
+
+            dataNomeArquivo = formatacao(dataNomeArquivo)
+            
+            delete()
+            
+            limparTela()
