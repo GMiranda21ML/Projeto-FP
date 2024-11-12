@@ -9,6 +9,16 @@ def limparTela():
     os.system("cls")
 
 
+def textoInicio():
+    print("""
+██████╗ ███████╗███╗   ███╗    ██╗   ██╗██╗███╗   ██╗██████╗  ██████╗     
+██╔══██╗██╔════╝████╗ ████║    ██║   ██║██║████╗  ██║██╔══██╗██╔═══██╗    
+██████╔╝█████╗  ██╔████╔██║    ██║   ██║██║██╔██╗ ██║██║  ██║██║   ██║    
+██╔══██╗██╔══╝  ██║╚██╔╝██║    ╚██╗ ██╔╝██║██║╚██╗██║██║  ██║██║   ██║    
+██████╔╝███████╗██║ ╚═╝ ██║     ╚████╔╝ ██║██║ ╚████║██████╔╝╚██████╔╝    
+╚═════╝ ╚══════╝╚═╝     ╚═╝      ╚═══╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝""")
+
+
 def create(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas):
     with open(f"Treino{dataFormatada}.txt", "w", encoding="utf-8") as file:
         file.write(f"""Data: {data}
