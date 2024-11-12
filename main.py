@@ -112,6 +112,7 @@ treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "C
 
 os.system("cls")
 while True:
+    mensagem = textoInicio()
     print("""
 Digite 1 para adicionar um registro de treino e competição
 Digite 2 para visualizar um registro de treino e competição
