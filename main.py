@@ -93,27 +93,52 @@ def delete():
         print("Arquivo não encontrado! por favor tente novamente")
 
 
-def cadastroMetas(titulo,data,meta):
-    with open(f'{titulo}{data}.txt','w') as file:
-          file.write(f"{meta}\n")
+def cadastroMetas(data,meta):
+    with open(f'Metas.txt','a') as file:
+          file.write(f"Data da meta:{data} | Meta:{meta}\n")
           file.close()
 
-def lerMetas(titulo,data):
+def lerMetas():
     try:
-        with open(f"{titulo}{data}.txt","r") as file:
+        with open(f"Metas.txt","r") as file:
             conteudo=file.read()
+            
             print(conteudo)
+
     except FileNotFoundError:
         print('Esse arquivo não existe')  
 
-def metasconcluidas(titulo,data,meta):
-    with open(f'{titulo}{data}.txt','w') as file:
-          file.write(f"{meta}\n")
-          file.close()
-
-def lermetasconcluidas(titulo,data):
+def concluirmeta(num):
+    novonum=num-1
     try:
-        with open(f"{titulo}{data}.txt","r") as file:
+        with open("Metas.txt", "r") as file:
+            linhas = file.readlines()
+
+        quant = len(linhas)  
+        
+        if novonum >= quant:
+            print("Número inválido, excede o número de metas.")
+            return
+
+        with open("Metaconcluida.txt", "a") as concluida:
+            concluida.write(linhas[novonum])
+        
+        with open("Metas.txt", "w") as metas:
+            for i in range(quant):
+                if i != novonum:
+                    metas.write(linhas[i])
+        
+        print(f"Meta {num} marcada como concluída")
+    
+    except Exception as e:
+        print(f"Ocorreu um erro: {e}")
+
+    except FileNotFoundError:
+        print('Esse arquivo não existe') 
+
+def lermetasconcluidas():
+    try:
+        with open(f"Metaconcluida.txt","r") as file:
             conteudo=file.read()
             print(conteudo)
     except FileNotFoundError:
@@ -273,25 +298,22 @@ Digite [5] para alterar as condições climaticas
                 opção=input(f"""
 {("="*70)}
 Digite [1] para criar uma meta
-Digite [2] para ler a meta atual
-{("="*70)}""")
+Digite [2] para ler as metas atuais
+Digite [3] para marcar uma meta como conluida
+Digite [4] para ver as metas concluidas
+{("="*70)}\nDigite o que deseja fazer:""")
                 if(opção=='1'):
-                    titulo='Meta'
-                    data=input('Digite uma Data ')
-                    meta=input('Digite sua Meta ')
-                    cadastroMetas(titulo,data,meta)
+                    data=str(input("Digite a data em que a meta foi criada:"))
+                    meta=str(input("Digite sua meta:"))
+                    cadastroMetas(data,meta)
                 elif(opção=='2'):
-                    titulo='Meta'
-                    data=input('digite uma data ')
-                    lerMetas(titulo,data)
-                    opção=input('Sua Meta foi concluida?(digite s/n) ').lower()
-                    if(opção=='s'):
-                        os.remove(f'{titulo}{data}.txt')
-                        print(f'A meta da Data:{data} foi Concluido')  
-                    elif(opção=='n'):
-                        print('Meta ainda não concluida')
-                    else:
-                        print('digito errado tente novamente')          
+                    lerMetas()
+                elif(opção=='3'):
+                    lerMetas()
+                    num=int(input("Digite o numero da meta que deseja marcar como concluida:"))
+                    concluirmeta(num)
+                elif(opção=='4'):
+                    lermetasconcluidas()
                 else:
                     print("digito errado")
             
