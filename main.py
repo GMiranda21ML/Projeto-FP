@@ -295,7 +295,6 @@ Digite [5] para alterar as condições climaticas
 
             case 5:
                 while True:
-                    os.system("cls")
                     opção=input(f"""
 {("="*70)}
 Digite [1] para criar uma meta
