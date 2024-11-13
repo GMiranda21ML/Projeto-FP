@@ -95,7 +95,7 @@ def delete():
 
 def cadastroMetas(titulo,data,meta):
     with open(f'{titulo}{data}.txt','w') as file:
-          file.write(f"{meta}")
+          file.write(f"{meta}\n")
           file.close()
 
 def lerMetas(titulo,data):
@@ -106,7 +106,18 @@ def lerMetas(titulo,data):
     except FileNotFoundError:
         print('Esse arquivo não existe')  
 
-  
+def metasconcluidas(titulo,data,meta):
+    with open(f'{titulo}{data}.txt','w') as file:
+          file.write(f"{meta}\n")
+          file.close()
+
+def lermetasconcluidas(titulo,data):
+    try:
+        with open(f"{titulo}{data}.txt","r") as file:
+            conteudo=file.read()
+            print(conteudo)
+    except FileNotFoundError:
+        print('Esse arquivo não existe')  
 
 treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "CondicoesClimaticas":[]}
 
