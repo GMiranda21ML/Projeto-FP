@@ -1,5 +1,5 @@
 import os
-
+#teste
 def formatacao(variavel):
     return variavel.replace("/", "")
 
