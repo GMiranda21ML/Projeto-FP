@@ -98,6 +98,7 @@ def cadastroMetas(data,meta):
           file.write(f"Data da meta:{data} | Meta:{meta}\n")
           file.close()
 
+
 def lerMetas():
     try:
         with open(f"Metas.txt","r") as file:
@@ -107,6 +108,7 @@ def lerMetas():
 
     except FileNotFoundError:
         print('Esse arquivo não existe')  
+
 
 def concluirmeta(num):
     novonum=num-1
@@ -136,6 +138,7 @@ def concluirmeta(num):
     except FileNotFoundError:
         print('Esse arquivo não existe') 
 
+
 def lermetasconcluidas():
     try:
         with open(f"Metaconcluida.txt","r") as file:
@@ -143,6 +146,7 @@ def lermetasconcluidas():
             print(conteudo)
     except FileNotFoundError:
         print('Esse arquivo não existe')  
+
 
 treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "CondicoesClimaticas":[]}
 
