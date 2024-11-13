@@ -294,6 +294,7 @@ Digite [5] para alterar as condições climaticas
                 limparTela()
 
             case 5:
+                os.system("cls")
                 while True:
                     opção=input(f"""
 {("="*70)}
@@ -304,18 +305,23 @@ Digite [4] para ver as metas concluidas
 Digite [5] para voltar para o menu principal
 {("="*70)}\nDigite o que deseja fazer:""")
                     if(opção=='1'):
+                        os.system("cls")    
                         data=str(input("Digite a data em que a meta foi criada:"))
                         meta=str(input("Digite sua meta:"))
                         cadastroMetas(data,meta)
                     elif(opção=='2'):
+                        os.system("cls")
                         lerMetas()
                     elif(opção=='3'):
+                        os.system("cls")
                         lerMetas()
                         num=int(input("Digite o numero da meta que deseja marcar como concluida:"))
                         concluirmeta(num)
                     elif(opção=='4'):
+                        os.system("cls")
                         lermetasconcluidas()
                     elif(opção=='5'):
+                        os.system("cls")
                         break
                     else:
                         print("digito errado")
