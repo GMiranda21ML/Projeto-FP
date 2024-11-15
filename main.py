@@ -37,13 +37,18 @@ def selecionartudo(comeco, fim, caminho):
     return arquivosTreinos
 
 
-def read():
+def read(arquivosTreinos):
+    if not arquivosTreinos:
+        print("Nenhum arquivo encontrado.")
+        return
     for arquivo in arquivosTreinos:
-        with open(arquivo, "r", encoding="utf-8") as file:
-            print(f"\nArquivo: {arquivo}")
-            print(file.read())
-            print("-" * 30)
-            file.close()
+        try:
+            with open(arquivo, "r", encoding="utf-8") as file:
+                print(f"\nArquivo: {arquivo}")
+                print(file.read())
+                print("-" * 30)
+        except Exception as e:
+            print(f"Erro ao ler o arquivo {arquivo}: {e}")
 
 
 def readFiltrado(filtro, arquivosTreinos, linha, medida): 
