@@ -80,8 +80,11 @@ def update(conteudo, formatacao, valorProUpdate, medida):
 
 
 def atualizarArquivo(nomeArquivo, conteudo):
-    with open(nomeArquivo, "w", encoding="utf-8") as file:
-        file.writelines(conteudo)
+    try:
+        with open(nomeArquivo, "w", encoding="utf-8") as file:
+            file.writelines(conteudo)
+    except Exception as e:
+        print(f"Erro ao atualizar o arquivo {nomeArquivo}: {e}")
 
 
 def lerArquivo(nomeArquivo):
