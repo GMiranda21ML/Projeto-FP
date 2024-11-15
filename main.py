@@ -20,13 +20,16 @@ def textoInicio():
 
 
 def create(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas):
-    with open(f"Treino{dataFormatada}.txt", "w", encoding="utf-8") as file:
-        file.write(f"""Data: {data}
+    try:
+        with open(f"Treino{dataFormatada}.txt", "w", encoding="utf-8") as file:
+            file.write(f"""Data: {data}
 Distancia percorrida: {distanciaPercorrida}km
 Tempo: {tempo}min
 Localização: {localizacao}
 Condições climaticas: {condicoesClimaticas}
 """)
+    except Exception as e:
+        print(f"Erro ao criar o arquivo: {e}")
 
 
 def selecionartudo(comeco, fim, caminho):
