@@ -123,32 +123,29 @@ def lerMetas():
 
 
 def concluirmeta(num):
-    novonum=num-1
+    novonum = num - 1
     try:
         with open("Metas.txt", "r") as file:
             linhas = file.readlines()
 
-        quant = len(linhas)  
-        
-        if novonum >= quant:
-            print("Número inválido, excede o número de metas.")
+        quant = len(linhas)
+
+        if novonum < 0 or novonum >= quant:
+            print("Número inválido. Por favor, escolha um número dentro do intervalo.")
             return
 
         with open("Metaconcluida.txt", "a") as concluida:
             concluida.write(linhas[novonum])
-        
+
         with open("Metas.txt", "w") as metas:
-            for i in range(quant):
+            for i, linha in enumerate(linhas):
                 if i != novonum:
-                    metas.write(linhas[i])
-        
-        print(f"Meta {num} marcada como concluída")
-    
-    except Exception as e:
-        print(f"Ocorreu um erro: {e}")
+                    metas.write(linha)
+
+        print(f"Meta {num} marcada como concluída e removida das pendentes.")
 
     except FileNotFoundError:
-        print('Esse arquivo não existe') 
+        print('O arquivo "Metas.txt" não existe. Verifique se ele foi criado.')
 
 
 def lermetasconcluidas():
