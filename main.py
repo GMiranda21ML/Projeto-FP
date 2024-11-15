@@ -93,12 +93,16 @@ def lerArquivo(nomeArquivo):
     return conteudo
 
 
-def delete():
-    if os.path.exists(f"Treino{dataNomeArquivo}.txt"):
-        os.remove(f"Treino{dataNomeArquivo}.txt")
-        print("Arquivo excluido com sucesso!")
+def delete(dataNomeArquivo):
+    nomeArquivo = f"Treino{dataNomeArquivo}.txt"
+    if os.path.exists(nomeArquivo):
+        try:
+            os.remove(nomeArquivo)
+            print("Arquivo excluído com sucesso!")
+        except Exception as e:
+            print(f"Erro ao excluir o arquivo {nomeArquivo}: {e}")
     else:
-        print("Arquivo não encontrado! por favor tente novamente")
+        print("Arquivo não encontrado!")
 
 
 def cadastroMetas(data,meta):
