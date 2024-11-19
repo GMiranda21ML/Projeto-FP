@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 6.3km
+Tempo: 34min
+Localização: Derby
+Condições climáticas: indiferente
+Status: a fazer

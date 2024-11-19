@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 8.9km
+Tempo: 44min
+Localização: Imbiribeira
+Condições climáticas: indiferente
+Status: a fazer

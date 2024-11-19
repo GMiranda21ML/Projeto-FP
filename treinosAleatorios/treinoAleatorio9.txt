@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 12.4km
+Tempo: 55min
+Localização: Recife Antigo
+Condições climáticas: indiferente
+Status: a fazer

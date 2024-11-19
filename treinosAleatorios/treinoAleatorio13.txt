@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 13.2km
+Tempo: 61min
+Localização: Boa Vista
+Condições climáticas: indiferente
+Status: a fazer

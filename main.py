@@ -1,7 +1,6 @@
 import os
 import matplotlib.pyplot as plt
 
-#teste
 def formatacao(variavel):
     return variavel.replace("/", "")
 
@@ -416,9 +415,9 @@ Digite [5] para voltar para o menu principal
                 
                 while True:
                     print("Você fez algum dos treinos aleatorios?")
-                    fazer = int(input("Se sim, digite o número de 1 a 5 para marcar como feito, se nao, digite 0: "))
+                    fazer = int(input("Se sim, digite o número de 1 a 20 para marcar como feito, se nao, digite 0: "))
                     
-                    if 1 <= fazer <= 5:
+                    if 1 <= fazer <= 20:
                         treinoFeito = "treinoAleatorio" + str(fazer) + ".txt"
                         arquivoCaminho = os.path.join(caminhoDaPasta, treinoFeito)
                         

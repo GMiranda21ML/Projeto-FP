@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 4.5km
+Tempo: 28min
+Localização: Cordeiro
+Condições climáticas: indiferente
+Status: a fazer

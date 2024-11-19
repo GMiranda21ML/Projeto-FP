@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 6.7km
+Tempo: 36min
+Localização: Santo Antônio
+Condições climáticas: indiferente
+Status: a fazer

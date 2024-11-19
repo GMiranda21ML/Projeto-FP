@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 15.2km
+Tempo: 73min
+Localização: Coqueiral
+Condições climáticas: indiferente
+Status: a fazer

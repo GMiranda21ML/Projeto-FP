@@ -1,0 +1,6 @@
+Data: Data: a sua escolha
+Distância percorrida: 10.0km
+Tempo: 50min
+Localização: Torre
+Condições climáticas: indiferente
+Status: a fazer

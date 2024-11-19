@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 7.4km
+Tempo: 39min
+Localização: Casa Forte
+Condições climáticas: indiferente
+Status: a fazer

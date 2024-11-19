@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 10.3km
+Tempo: 49min
+Localização: Madalena
+Condições climáticas: indiferente
+Status: a fazer

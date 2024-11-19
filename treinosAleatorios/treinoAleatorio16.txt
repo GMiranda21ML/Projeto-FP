@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 11.1km
+Tempo: 53min
+Localização: Afogados
+Condições climáticas: indiferente
+Status: a fazer

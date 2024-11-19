@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 14.6km
+Tempo: 68min
+Localização: Iputinga
+Condições climáticas: indiferente
+Status: a fazer

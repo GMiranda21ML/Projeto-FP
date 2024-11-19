@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 8.2km
+Tempo: 45min
+Localização: Boa Viagem
+Condições climáticas: indiferente
+Status: a fazer

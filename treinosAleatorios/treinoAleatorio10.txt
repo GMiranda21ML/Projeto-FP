@@ -1,0 +1,6 @@
+Data: a sua escolha
+Distância percorrida: 5.8km
+Tempo: 32min
+Localização: Graças
+Condições climáticas: indiferente
+Status: a fazer
