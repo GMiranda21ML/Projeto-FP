@@ -36,7 +36,7 @@ Condições climaticas: {condicoesClimaticas}
 def selecionartudo(comeco, fim, caminho):
     arquivosTreinos = []
     for arquivo in os.listdir(caminho):
-        if arquivo.startswith(comeco) and arquivo.endswith(fim): #and os.path.isfile(arquivo):
+        if arquivo.startswith(comeco) and arquivo.endswith(fim):
             arquivosTreinos.append(arquivo)
     return arquivosTreinos
 
@@ -75,7 +75,6 @@ def readFiltrado(filtro, arquivosTreinos, linha, medida):
                     print("Erro em processar o valor do arquivo")    
 
 
-#obs: tlvz eu consiga juntar o update com o atualizarArquivo
 def update(conteudo, formatacao, valorProUpdate, medida): 
     for i in range(len(conteudo)):
         if formatacao in conteudo[i]:
@@ -190,7 +189,6 @@ def gerarRelatorioVisual(arquivosTreinos):
         print("Dados insuficientes para gerar o relatório.")
         return
 
-    # Gráfico de linha / Evolução de distâncias
     plt.figure(figsize=(10, 5))
     plt.plot(datas, distancias, marker='o', label="Distância (km)")
     plt.title("Evolução de Distâncias")
@@ -202,7 +200,6 @@ def gerarRelatorioVisual(arquivosTreinos):
     plt.tight_layout()
     plt.show()
 
-    # Gráfico de barras / Tempos
     plt.figure(figsize=(10, 5))
     plt.bar(datas, tempos, color='orange', label="Tempo (min)")
     plt.title("Tempo em Provas e Treinos")
@@ -243,7 +240,7 @@ Digite [0] para encerrar o programa
         
             case 1:
                 try: 
-                    data = input("Digite a data do seu treino/competição (DD/MM/YYYY): ") # LEMBRAR DA TRATAÇÃO DO USUARIO EX: DATA > 10
+                    data = input("Digite a data do seu treino/competição (DD/MM/YYYY): ")
                     treinos["Data"] = data
                     distanciaPercorrida = float(input("Digite a distancia percorrida (KM): "))
                     treinos["DistanciaPercorrida"] = distanciaPercorrida
@@ -400,13 +397,11 @@ Digite [5] para voltar para o menu principal
             
             case 6:
                 os.system("cls")
-                
-                caminhoDaPasta = "treinosAleatorios"
 
-                listaAleatorios =  selecionartudo("treinoAleatorio", ".txt", caminhoDaPasta)
+                listaAleatorios =  selecionartudo("treinoAleatorio", ".txt", ".")
                 
                 for treinosAleatorios in listaAleatorios:
-                    caminhoArquivo = os.path.join(caminhoDaPasta, treinosAleatorios) #caminhoDaPasta + "/" + treinoAleatorio
+                    caminhoArquivo = treinosAleatorios 
                     with open(caminhoArquivo, "r", encoding="UTF-8") as file:
                         print(f"\nArquivo: {treinosAleatorios}")
                         print(file.read())
@@ -419,7 +414,7 @@ Digite [5] para voltar para o menu principal
                     
                     if 1 <= fazer <= 20:
                         treinoFeito = "treinoAleatorio" + str(fazer) + ".txt"
-                        arquivoCaminho = os.path.join(caminhoDaPasta, treinoFeito)
+                        arquivoCaminho = treinoFeito
                         
                         conteudo = lerArquivo(arquivoCaminho)
 
