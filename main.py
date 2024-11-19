@@ -1,4 +1,6 @@
 import os
+import matplotlib.pyplot as plt
+
 #teste
 def formatacao(variavel):
     return variavel.replace("/", "")
@@ -160,6 +162,60 @@ def lermetasconcluidas():
         print('Esse arquivo não existe')  
 
 
+def gerarRelatorioVisual(arquivosTreinos):
+    if not arquivosTreinos:
+        print("Nenhum treino encontrado para gerar o relatório.")
+        return
+
+    datas = []
+    distancias = []
+    tempos = []
+
+    for arquivo in arquivosTreinos:
+        try:
+            with open(arquivo, "r", encoding="utf-8") as file:
+                conteudo = file.read()
+                
+                data = conteudo.split("\n")[0].split(":")[1].strip()
+                distancia = float(conteudo.split("\n")[1].split(":")[1].strip().replace("km", ""))
+                tempo = int(conteudo.split("\n")[2].split(":")[1].strip().replace("min", ""))
+
+                datas.append(data)
+                distancias.append(distancia)
+                tempos.append(tempo)
+
+        except Exception as e:
+            print(f"Erro ao processar o arquivo {arquivo}: {e}")
+
+    if not datas or not distancias or not tempos:
+        print("Dados insuficientes para gerar o relatório.")
+        return
+
+    # Gráfico de linha / Evolução de distâncias
+    plt.figure(figsize=(10, 5))
+    plt.plot(datas, distancias, marker='o', label="Distância (km)")
+    plt.title("Evolução de Distâncias")
+    plt.xlabel("Datas")
+    plt.ylabel("Distância (km)")
+    plt.xticks(rotation=45)
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+    # Gráfico de barras / Tempos
+    plt.figure(figsize=(10, 5))
+    plt.bar(datas, tempos, color='orange', label="Tempo (min)")
+    plt.title("Tempo em Provas e Treinos")
+    plt.xlabel("Datas")
+    plt.ylabel("Tempo (min)")
+    plt.xticks(rotation=45)
+    plt.grid(axis='y')
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+
 treinos = {"Data":[], "DistanciaPercorrida":[], "Tempo":[], "Localizacao":[], "CondicoesClimaticas":[]}
 
 os.system("cls")
@@ -174,7 +230,8 @@ Digite [2] para visualizar um registro de treino e competição
 Digite [3] para atualizar um registro de treino e competição
 Digite [4] para excluir um registro de treino e competição
 Digite [5] para registrar/visualizar suas metas;
-Digite [6] para vê sugestões de treinos aleatorios
+Digite [6] para ver sugestões de treinos aleatorios
+Digite [7] para ver a evolução dos treinos
 Digite [0] para encerrar o programa
 {("="*70)}""")
     
@@ -379,6 +436,12 @@ Digite [5] para voltar para o menu principal
                     else:
                         print("Opção incorreta, por favor digite novamente!")
                 
+                limparTela()
+            
+            case 7:
+                os.system("cls")
+                arquivosTreinos = selecionartudo("Treino", ".txt", ".")
+                gerarRelatorioVisual(arquivosTreinos)
                 limparTela()
 
             case _:
