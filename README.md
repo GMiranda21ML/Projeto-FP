@@ -82,5 +82,5 @@ Pretendemos garantir uma forma inovadora e mais intuitiva ao usuário, que por m
 
 | Nomes           | E-mail institucional |
 | --------------- | -------------------- |
-| Izabella Nunes  | inv@cesar.school     |
 | Ana Carolina    | accm4@cesar.school   |
+| Izabella Nunes  | inv@cesar.school     |
