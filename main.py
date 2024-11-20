@@ -33,9 +33,18 @@ def textoInicio():
 ╚═════╝ ╚══════╝╚═╝     ╚═╝      ╚═══╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝""")
 
 
-def criar(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas):
+def criar(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas,num):
+
+    if os.path.exists(f"Treino{num}{dataFormatada}.txt"):
+        print("Já existe um arquivo para essa data.")
+
+        data = input("Digite a data do seu treino (DD/MM/YYYY): ")
+        validacao = verificarData(data)
+        num=int(input("Digite outro número para o treino: "))
+        dataFormatada = formatacao(data)
+
     try:
-        with open(f"Treino{dataFormatada}.txt", "w", encoding="utf-8") as file:
+        with open(f"Treino{num}{dataFormatada}.txt", "w", encoding="utf-8") as file:
             file.write(f"""Data: {data}
 Distancia percorrida: {distanciaPercorrida}km
 Tempo: {tempo}min
@@ -46,9 +55,18 @@ Condições climaticas: {condicoesClimaticas}
         print(f"Erro ao criar o arquivo: {e}")
 
 
-def criarCOMP(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas, nomeCOMP):
+def criarCOMP(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas, nomeCOMP,num):
+
+    if os.path.exists(f"Competição{num}{dataFormatada}.txt"):
+        print("Já existe um arquivo para essa data.")
+
+        data = input("Digite a data do seu treino (DD/MM/YYYY): ")
+        validacao = verificarData(data)
+        num=int(input("Digite outro número para a competição: "))
+        dataFormatada = formatacao(data)
+
     try:
-        with open(f"Competição{dataFormatada}.txt", "w", encoding="utf-8") as file:
+        with open(f"Competição{num}{dataFormatada}.txt", "w", encoding="utf-8") as file:
             file.write(f"""Data: {data}
 Distancia percorrida: {distanciaPercorrida}km
 Tempo: {tempo}min
@@ -123,7 +141,7 @@ def lerArquivo(nomeArquivo):
     return conteudo
 
 
-def deletar(dataNomeArquivo):
+def deletar(dataNomeArquivo,num):
     while True:
         try:
             op = int(input('Essa data se refere a um [1]treino ou [2]competição? '))
@@ -132,7 +150,7 @@ def deletar(dataNomeArquivo):
 
                 case 1:
 
-                    nomeArquivo = f"Treino{dataNomeArquivo}.txt"
+                    nomeArquivo = f"Treino{num}{dataNomeArquivo}.txt"
                     if os.path.exists(nomeArquivo):
                         try:
                             os.remove(nomeArquivo)
@@ -148,7 +166,7 @@ def deletar(dataNomeArquivo):
                 
                 case 2:
 
-                    nomeArquivo = f"Competição{dataNomeArquivo}.txt"
+                    nomeArquivo = f"Competição{num}{dataNomeArquivo}.txt"
                     if os.path.exists(nomeArquivo):
                         try:
                             os.remove(nomeArquivo)
@@ -346,7 +364,13 @@ Digite [0] para encerrar o programa
                                 
                                 data = input("Digite a data do seu treino (DD/MM/YYYY): ")
                                 validacao = verificarData(data)
+                                num=int(input("Digite o número do treino: "))
                                 
+                                dataFormatada = formatacao(data)
+                                if os.path.exists(f"Treino{num}{dataFormatada}.txt"):
+                                    print("Já existe um arquivo com essas informações,redigite os dados!")
+                                    continue
+
                                 if validacao == 'correto':
                                     break
                                 if validacao == 'incorreto':
@@ -361,8 +385,8 @@ Digite [0] para encerrar o programa
                             treinos["Localizacao"] = localizacao
                             condicoesClimaticas = input("Digite as condições climaticas na hora do treino: ")
                             treinos["CondicoesClimaticas"] = condicoesClimaticas
-                            dataFormatada = formatacao(data)
-                            criar(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas) 
+                            
+                            criar(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas,num) 
 
                         except ValueError:
                             print("Você digitou um número errado, por favor digite novamente!")
@@ -377,7 +401,13 @@ Digite [0] para encerrar o programa
                                 
                                 data = input("Digite a data da sua competição (DD/MM/YYYY): ")
                                 validacao = verificarData(data)
-                                
+                                num=int(input("Digite o número da competição: "))
+
+                                dataFormatada = formatacao(data)
+                                if os.path.exists(f"Treino{num}{dataFormatada}.txt"):
+                                    print("Já existe um arquivo com essas informações,redigite os dados!")
+                                    continue
+
                                 if validacao == 'correto':
                                     break
                                 if validacao == 'incorreto':
@@ -394,8 +424,8 @@ Digite [0] para encerrar o programa
                             treinos["CondicoesClimaticas"] = condicoesClimaticas
                             nomeCOMP = input('Digite o nome da competição: ')
                             treinos["nomeCOMP"] = nomeCOMP
-                            dataFormatada = formatacao(data)
-                            criarCOMP(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas, nomeCOMP) 
+                            
+                            criarCOMP(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas, nomeCOMP,num) 
 
                         except ValueError:
                             print("Você digitou um número errado, por favor digite novamente!")
@@ -481,7 +511,8 @@ Digite [0] para encerrar o programa
                         while True:        
                             dataArquivo = input("Digite a data do treino que você deseja alterar: ")
                             validacao = verificarData(dataArquivo)
-                            
+                            num=int(input("Digite o número do treino: "))
+
                             if validacao == 'correto':
                                 break
 
@@ -489,7 +520,7 @@ Digite [0] para encerrar o programa
                                 continue
                         
                         dataArquivo = formatacao(dataArquivo)
-                        nomeArquivo = f"Treino{dataArquivo}.txt"
+                        nomeArquivo = f"Treino{num}{dataArquivo}.txt"
                         if os.path.isfile(nomeArquivo):
 
                             print(f"""
@@ -555,7 +586,8 @@ Digite [5] para alterar as condições climaticas
                         while True: 
                                 dataArquivo = input("Digite a data da competição que você deseja alterar: ")
                                 validacao = verificarData(dataArquivo)
-                                
+                                num=int(input("Digite o número da competição: "))
+
                                 if validacao == 'correto':
                                     break
 
@@ -563,7 +595,7 @@ Digite [5] para alterar as condições climaticas
                                     continue
 
                         dataArquivo = formatacao(dataArquivo)
-                        nomeArquivo = f"Competição{dataArquivo}.txt"
+                        nomeArquivo = f"Competição{num}{dataArquivo}.txt"
                         if os.path.isfile(nomeArquivo):
 
                             print(f"""
@@ -637,6 +669,7 @@ Digite [6] para alterar o nome da competição
                                 
                     dataNomeArquivo = input("Digite a data da corrida que você deseja excluir: ")
                     validacao = verificarData(dataNomeArquivo)
+                    
                     if validacao == 'correto':
                         break
 
@@ -645,7 +678,9 @@ Digite [6] para alterar o nome da competição
                 
                 dataNomeArquivo = formatacao(dataNomeArquivo)
                 
-                deletar(dataNomeArquivo)
+                num=int(input("Digite o número da corrida que você deseja excluir: "))
+
+                deletar(dataNomeArquivo,num)
                 
                 limparTela()
 
