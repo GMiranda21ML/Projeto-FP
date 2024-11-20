@@ -1,8 +1,22 @@
 import os
 import matplotlib.pyplot as plt
+import time
 
 def formatacao(variavel):
     return variavel.replace("/", "")
+
+
+def verificarData (data):
+    
+    try:
+        time.strptime(data, "%d/%m/%Y")
+        x = 'correto'
+        return (x)
+
+    except ValueError:
+        print("Data inválida! Insira uma data no formato DD/MM/YYYY.")
+        x = 'incorreto'
+        return (x)
 
 
 def limparTela():
@@ -294,8 +308,19 @@ Digite [0] para encerrar o programa
                 match op:
 
                     case 1: 
-                        try: 
-                            data = input("Digite a data do seu treino (DD/MM/YYYY): ")
+                        
+                        try:
+                            
+                            while True: 
+                                
+                                data = input("Digite a data do seu treino (DD/MM/YYYY): ")
+                                validacao = verificarData(data)
+                                
+                                if validacao == 'correto':
+                                    break
+                                if validacao == 'incorreto':
+                                    continue
+
                             treinos["Data"] = data
                             distanciaPercorrida = float(input("Digite a distancia percorrida (KM): "))
                             treinos["DistanciaPercorrida"] = distanciaPercorrida
@@ -314,8 +339,19 @@ Digite [0] para encerrar o programa
                         limparTela()
             
                     case 2:
+                        
                         try: 
-                            data = input("Digite a data da sua competição (DD/MM/YYYY): ")
+                            
+                            while True: 
+                                
+                                data = input("Digite a data da sua competição (DD/MM/YYYY): ")
+                                validacao = verificarData(data)
+                                
+                                if validacao == 'correto':
+                                    break
+                                if validacao == 'incorreto':
+                                    continue
+
                             treinos["Data"] = data
                             distanciaPercorrida = float(input("Digite a distancia percorrida (KM): "))
                             treinos["DistanciaPercorrida"] = distanciaPercorrida
@@ -411,8 +447,17 @@ Digite [0] para encerrar o programa
                 match op:
                     case 1:
                         os.system("cls")
-                        dataArquivo = input("Digite a data do treino que você deseja alterar: ")
+                        while True: 
+                                
+                                dataArquivo = input("Digite a data do treino que você deseja alterar: ")
+                                validacao = verificarData(dataArquivo)
+                                
+                                if validacao == 'correto':
+                                    break
 
+                                if validacao == 'incorreto':
+                                    continue
+                        
                         dataArquivo = formatacao(dataArquivo)
                         nomeArquivo = f"Treino{dataArquivo}.txt"
                         if os.path.isfile(nomeArquivo):
@@ -431,7 +476,17 @@ Digite [5] para alterar as condições climaticas
 
                             match opcaoUpdate:
                                 case 1:
-                                    novaData = input("Digite a nova data: ")
+                                    
+                                    while True:
+                                
+                                        novaData = input("Digite a nova data: ")
+                                        validacao = verificarData(novaData)
+                                        
+                                        if validacao == 'correto':
+                                            break
+
+                                        if validacao == 'incorreto':
+                                            continue    
                                     
                                     conteudo = update(conteudo, "Data: ", novaData, "")
 
@@ -469,7 +524,16 @@ Digite [5] para alterar as condições climaticas
                     
                     case 2:
                         os.system("cls")
-                        dataArquivo = input("Digite a data da competição que você deseja alterar: ")
+                        while True: 
+                                
+                                dataArquivo = input("Digite a data da competição que você deseja alterar: ")
+                                validacao = verificarData(dataArquivo)
+                                
+                                if validacao == 'correto':
+                                    break
+
+                                if validacao == 'incorreto':
+                                    continue
 
                         dataArquivo = formatacao(dataArquivo)
                         nomeArquivo = f"Competição{dataArquivo}.txt"
@@ -490,7 +554,16 @@ Digite [6] para alterar o nome da competição
 
                             match opcaoUpdate:
                                 case 1:
-                                    novaData = input("Digite a nova data: ")
+                                    while True:
+                                
+                                        novaData = input("Digite a nova data: ")
+                                        validacao = verificarData(novaData)
+                                        
+                                        if validacao == 'correto':
+                                            break
+
+                                        if validacao == 'incorreto':
+                                            continue    
                                     
                                     conteudo = update(conteudo, "Data: ", novaData, "")
 
@@ -535,8 +608,16 @@ Digite [6] para alterar o nome da competição
 
             case 4:
                 os.system("cls")
-                dataNomeArquivo = input("Digite a data da corrida que você deseja excluir: ")
+                while True:
+                                
+                    dataNomeArquivo = input("Digite a data da corrida que você deseja excluir: ")
+                    validacao = verificarData(dataNomeArquivo)
+                    if validacao == 'correto':
+                        break
 
+                    if validacao == 'incorreto':
+                        continue    
+                
                 dataNomeArquivo = formatacao(dataNomeArquivo)
                 
                 delete(dataNomeArquivo)
@@ -558,22 +639,38 @@ Digite [5] para voltar para o menu principal
                     if(opção=='1'):
                         os.system("cls")    
                         data=str(input("Digite a data em que a meta foi criada:"))
+                        while True:
+                                    
+                            data=str(input("Digite a data em que a meta foi criada:"))
+                            validacao = verificarData(data)
+
+                            if validacao == 'correto':
+                                break
+
+                            if validacao == 'incorreto':
+                                continue  
+
                         meta=str(input("Digite sua meta:"))
                         cadastroMetas(data,meta)
+                    
                     elif(opção=='2'):
                         os.system("cls")
                         lerMetas()
+                    
                     elif(opção=='3'):
                         os.system("cls")
                         lerMetas()
                         num=int(input("Digite o numero da meta que deseja marcar como concluida:"))
                         concluirmeta(num)
+                    
                     elif(opção=='4'):
                         os.system("cls")
                         lermetasconcluidas()
+                    
                     elif(opção=='5'):
                         os.system("cls")
                         break
+                    
                     else:
                         print("digito errado")
             
