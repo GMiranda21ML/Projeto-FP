@@ -70,10 +70,10 @@ Pretendemos garantir uma forma inovadora e mais intuitiva ao usuário, que por m
 
 ### INTEGRANTES: 
 
-| Nomes           | Turma | Idade |
-| --------------- | ----- | ----- |
-| Andre Avelino   | A     | 18    |
-| Arthur Monteiro | A     | 18    |
-| Caio Mathews    | A     | 18    |
-| Gabriel Miranda | A     | 19    |
-| Thiago Medeiros | A     | 19    |
+| Nomes           | Turma | E-mail institucional |
+| --------------- | ----- | -------------------- |
+| Andre Avelino   | A     | aafo@cesar.school    |
+| Arthur Monteiro | A     | aml@cesar.school     |
+| Caio Mathews    | A     | cmff@cesar.school    |
+| Gabriel Miranda | A     | gmml@cesar.school    |
+| Thiago Medeiros | A     | tfm3@cesar.school    |
