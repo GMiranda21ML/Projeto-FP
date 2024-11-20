@@ -77,3 +77,10 @@ Pretendemos garantir uma forma inovadora e mais intuitiva ao usuário, que por m
 | Caio Mathews    | A     | cmff@cesar.school    |
 | Gabriel Miranda | A     | gmml@cesar.school    |
 | Thiago Medeiros | A     | tfm3@cesar.school    |
+
+### ORIENTADORAS: 
+
+| Nomes           | E-mail institucional |
+| --------------- | -------------------- |
+| Izabella Nunes  | inv@cesar.school     |
+| Ana Carolina    | accm4@cesar.school   |
