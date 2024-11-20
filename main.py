@@ -282,7 +282,7 @@ os.system("cls")
 while True:
     
     try:
-        mensagem = textoInicio()
+        textoInicio()
         print(f"""
 {("="*70)}        
 Digite [1] para adicionar um registro de treino/competição
