@@ -267,7 +267,7 @@ Digite [0] para encerrar o programa
                     arquivosTreinos = selecionartudo("Treino", ".txt", ".")
 
                     if filtro == "nao" or filtro == "não":
-                        read()
+                        read(arquivosTreinos)
                         break
 
                     elif filtro == "sim":
@@ -358,7 +358,7 @@ Digite [5] para alterar as condições climaticas
 
                 dataNomeArquivo = formatacao(dataNomeArquivo)
                 
-                delete()
+                delete(dataNomeArquivo)
                 
                 limparTela()
 
