@@ -33,13 +33,13 @@ def textoInicio():
 ╚═════╝ ╚══════╝╚═╝     ╚═╝      ╚═══╝  ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝""")
 
 
-def criar(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas,num):
+def criar(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas, num):
 
     if os.path.exists(f"Treino{num}{dataFormatada}.txt"):
         print("Já existe um arquivo para essa data.")
 
         data = input("Digite a data do seu treino (DD/MM/YYYY): ")
-        validacao = verificarData(data)
+        # validacao = verificarData(data)
         num=int(input("Digite outro número para o treino: "))
         dataFormatada = formatacao(data)
 
@@ -55,13 +55,12 @@ Condições climaticas: {condicoesClimaticas}
         print(f"Erro ao criar o arquivo: {e}")
 
 
-def criarCOMP(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas, nomeCOMP,num):
-
+def criarCOMP(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas, nomeCOMP, num):
     if os.path.exists(f"Competição{num}{dataFormatada}.txt"):
         print("Já existe um arquivo para essa data.")
 
         data = input("Digite a data do seu treino (DD/MM/YYYY): ")
-        validacao = verificarData(data)
+        # validacao = verificarData(data)
         num=int(input("Digite outro número para a competição: "))
         dataFormatada = formatacao(data)
 
@@ -144,25 +143,23 @@ def lerArquivo(nomeArquivo):
 def deletar(dataNomeArquivo,num):
     while True:
         try:
-            op = int(input('Essa data se refere a um [1]treino ou [2]competição? '))
+            op = int(input("Essa data se refere a um [1]treino ou [2]competição? "))
             
             match op:
-
                 case 1:
-
                     nomeArquivo = f"Treino{num}{dataNomeArquivo}.txt"
                     if os.path.exists(nomeArquivo):
                         try:
                             os.remove(nomeArquivo)
                             print("Arquivo excluído com sucesso!")
 
-                            limparTela()
                             break
 
                         except Exception as e:
                             print(f"Erro ao excluir o arquivo {nomeArquivo}: {e}")
                     else:
                         print("Arquivo não encontrado!")
+                        break
                 
                 case 2:
 
@@ -172,25 +169,24 @@ def deletar(dataNomeArquivo,num):
                             os.remove(nomeArquivo)
                             print("Arquivo excluído com sucesso!")
 
-                            limparTela()
                             break
 
                         except Exception as e:
                             print(f"Erro ao excluir o arquivo {nomeArquivo}: {e}")
                     else:
                         print("Arquivo não encontrado!")
+                        break
                 
-                case _ :
-                    
-                    print('Digite um número inteiro, sendo ele 1 ou 2.')
+                case _ :     
+                    print("Digite um número inteiro, sendo ele 1 ou 2.")
 
         except ValueError:
-            print('Erro! Digite um valor inteiro.')
+            print("Erro! Digite um valor inteiro.")
             continue
 
 
 def cadastroMetas(data,meta):
-    with open(f'Metas.txt','a') as file:
+    with open(f"Metas.txt","a") as file:
           file.write(f"Data da meta:{data} | Meta:{meta}\n")
           file.close()
 
@@ -203,7 +199,7 @@ def lerMetas():
             print(conteudo)
 
     except FileNotFoundError:
-        print('Esse arquivo não existe')  
+        print("Esse arquivo não existe")  
 
 
 def concluirmeta(num):
@@ -238,91 +234,101 @@ def lermetasconcluidas():
             conteudo=file.read()
             print(conteudo)
     except FileNotFoundError:
-        print('Esse arquivo não existe')  
+        print("Esse arquivo não existe")  
 
 def gerarRelatorioVisual(arquivosTreinos, arquivosCompeticoes):
     if not arquivosTreinos and not arquivosCompeticoes:
         print("Nenhum treino ou competição encontrado para gerar o relatório.")
         return
 
-    datasTreinos = []
+    
     distanciasTreinos = []
+    identificadoresTreinos = []  
     temposTreinos = []
 
-    datasCompeticoes = []
+    
     distanciasCompeticoes = []
+    identificadoresCompeticoes = [] 
     temposCompeticoes = []
 
-    for arquivo in arquivosTreinos:
+    
+    for i, arquivo in enumerate(arquivosTreinos):
         try:
             with open(arquivo, "r", encoding="utf-8") as file:
                 conteudo = file.read()
                 data = conteudo.split("\n")[0].split(":")[1].strip()
                 distancia = float(conteudo.split("\n")[1].split(":")[1].strip().replace("km", ""))
                 tempo = int(conteudo.split("\n")[2].split(":")[1].strip().replace("min", ""))
-
-                datasTreinos.append(data)
+                
+                identificadoresTreinos.append(f"Treino {i + 1} ({data})")
                 distanciasTreinos.append(distancia)
                 temposTreinos.append(tempo)
         except Exception as e:
             print(f"Erro ao processar o arquivo de treino {arquivo}: {e}")
 
-    for arquivo in arquivosCompeticoes:
+    
+    for i, arquivo in enumerate(arquivosCompeticoes):
         try:
             with open(arquivo, "r", encoding="utf-8") as file:
                 conteudo = file.read()
                 data = conteudo.split("\n")[0].split(":")[1].strip()
                 distancia = float(conteudo.split("\n")[1].split(":")[1].strip().replace("km", ""))
                 tempo = int(conteudo.split("\n")[2].split(":")[1].strip().replace("min", ""))
-
-                datasCompeticoes.append(data)
+                
+                identificadoresCompeticoes.append(f"Competição {i + 1} ({data})")
                 distanciasCompeticoes.append(distancia)
                 temposCompeticoes.append(tempo)
         except Exception as e:
             print(f"Erro ao processar o arquivo de competição {arquivo}: {e}")
 
-    if datasTreinos and distanciasTreinos and temposTreinos:
+    
+    if distanciasTreinos:
         plt.figure(figsize=(10, 5))
-        plt.plot(datasTreinos, distanciasTreinos, marker='o', label="Distância (km)")
+        plt.plot(range(1, len(distanciasTreinos) + 1), distanciasTreinos, marker="o", label="Distância (km)")
         plt.title("Evolução de Distâncias - Treinos")
-        plt.xlabel("Datas")
+        plt.xlabel("Treinos")
         plt.ylabel("Distância (km)")
-        plt.xticks(rotation=45)
+        plt.xticks(ticks=range(1, len(distanciasTreinos) + 1), labels=identificadoresTreinos, rotation=45)
         plt.grid(True)
         plt.legend()
         plt.tight_layout()
         plt.show()
 
+    
+    if temposTreinos:
         plt.figure(figsize=(10, 5))
-        plt.bar(datasTreinos, temposTreinos, color='blue', label="Tempo (min)")
+        plt.bar(range(1, len(temposTreinos) + 1), temposTreinos, color="blue", label="Tempo (min)")
         plt.title("Tempo em Treinos")
-        plt.xlabel("Datas")
+        plt.xlabel("Treinos")
         plt.ylabel("Tempo (min)")
-        plt.xticks(rotation=45)
-        plt.grid(axis='y')
+        plt.xticks(ticks=range(1, len(temposTreinos) + 1), labels=identificadoresTreinos, rotation=45)
+        plt.grid(axis="y")
         plt.legend()
         plt.tight_layout()
         plt.show()
 
-    if datasCompeticoes and distanciasCompeticoes and temposCompeticoes:
+    
+    if distanciasCompeticoes:
         plt.figure(figsize=(10, 5))
-        plt.plot(datasCompeticoes, distanciasCompeticoes, marker='o', color='red', label="Distância (km)")
+        plt.plot(range(1, len(distanciasCompeticoes) + 1), distanciasCompeticoes, marker="o", color="red", label="Distância (km)")
         plt.title("Evolução de Distâncias - Competições")
-        plt.xlabel("Datas")
+        plt.xlabel("Competições")
         plt.ylabel("Distância (km)")
-        plt.xticks(rotation=45)
+        plt.xticks(ticks=range(1, len(distanciasCompeticoes) + 1), labels=identificadoresCompeticoes, rotation=45)
         plt.grid(True)
         plt.legend()
         plt.tight_layout()
         plt.show()
 
+    
+    if temposCompeticoes:
         plt.figure(figsize=(10, 5))
-        plt.bar(datasCompeticoes, temposCompeticoes, color='orange', label="Tempo (min)")
+        plt.bar(range(1, len(temposCompeticoes) + 1), temposCompeticoes, color="orange", label="Tempo (min)")
         plt.title("Tempo em Competições")
-        plt.xlabel("Datas")
+        plt.xlabel("Competições")
         plt.ylabel("Tempo (min)")
-        plt.xticks(rotation=45)
-        plt.grid(axis='y')
+        plt.xticks(ticks=range(1, len(temposCompeticoes) + 1), labels=identificadoresCompeticoes, rotation=45)
+        plt.grid(axis="y")
         plt.legend()
         plt.tight_layout()
         plt.show()
@@ -354,176 +360,177 @@ Digite [0] para encerrar o programa
                 break
         
             case 1:
-                op = int(input("Você deseja adicionar um [1]treino ou [2]competição: "))
-                
-                match op:
+                while True:
+                    op = int(input("Você deseja adicionar um [1]treino ou [2]competição: "))
+                    if op != 1 and op != 2:
+                        print("Opção invalida! por favor digite novamente")
+                    else:
+                        match op:
+                            case 1:              
+                                try:     
+                                    while True: 
+                                        data = input("Digite a data do seu treino (DD/MM/YYYY): ")
+                                        validacao = verificarData(data)
+                                        num=int(input("Digite o número do treino: "))
+                                        
+                                        dataFormatada = formatacao(data)
+                                        if os.path.exists(f"Treino{num}{dataFormatada}.txt"):
+                                            print("Já existe um arquivo com essas informações,redigite os dados!")
+                                            continue
 
-                    case 1:              
-                        try:     
-                            while True: 
-                                
-                                data = input("Digite a data do seu treino (DD/MM/YYYY): ")
-                                validacao = verificarData(data)
-                                num=int(input("Digite o número do treino: "))
-                                
-                                dataFormatada = formatacao(data)
-                                if os.path.exists(f"Treino{num}{dataFormatada}.txt"):
-                                    print("Já existe um arquivo com essas informações,redigite os dados!")
-                                    continue
+                                        if validacao == "correto":
+                                            break
+                                        if validacao == "incorreto":
+                                            continue
 
-                                if validacao == 'correto':
-                                    break
-                                if validacao == 'incorreto':
-                                    continue
+                                    treinos["Data"] = data
+                                    distanciaPercorrida = float(input("Digite a distancia percorrida (KM): "))
+                                    treinos["DistanciaPercorrida"] = distanciaPercorrida
+                                    tempo = int(input("Digite o tempo em minutos que você levou para concluir esse treino: "))
+                                    treinos["Tempo"] = tempo
+                                    localizacao = input("Digite a localizacao do seu treino: ")
+                                    treinos["Localizacao"] = localizacao
+                                    condicoesClimaticas = input("Digite as condições climaticas na hora do treino: ")
+                                    treinos["CondicoesClimaticas"] = condicoesClimaticas
+                                    
+                                    criar(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas,num) 
 
-                            treinos["Data"] = data
-                            distanciaPercorrida = float(input("Digite a distancia percorrida (KM): "))
-                            treinos["DistanciaPercorrida"] = distanciaPercorrida
-                            tempo = int(input("Digite o tempo em minutos que você levou para concluir esse treino: "))
-                            treinos["Tempo"] = tempo
-                            localizacao = input("Digite a localizacao do seu treino: ")
-                            treinos["Localizacao"] = localizacao
-                            condicoesClimaticas = input("Digite as condições climaticas na hora do treino: ")
-                            treinos["CondicoesClimaticas"] = condicoesClimaticas
-                            
-                            criar(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas,num) 
+                                except ValueError:
+                                    print("Você digitou um número errado, por favor digite novamente!")
+                    
+                            case 2:
+                                try:   
+                                    while True:                               
+                                        data = input("Digite a data da sua competição (DD/MM/YYYY): ")
+                                        validacao = verificarData(data)
+                                        num=int(input("Digite o número da competição: "))
 
-                        except ValueError:
-                            print("Você digitou um número errado, por favor digite novamente!")
+                                        dataFormatada = formatacao(data)
+                                        if os.path.exists(f"Treino{num}{dataFormatada}.txt"):
+                                            print("Já existe um arquivo com essas informações,redigite os dados!")
+                                            continue
 
-                        limparTela()
-            
-                    case 2:
-                        
-                        try: 
-                            
-                            while True: 
-                                
-                                data = input("Digite a data da sua competição (DD/MM/YYYY): ")
-                                validacao = verificarData(data)
-                                num=int(input("Digite o número da competição: "))
+                                        if validacao == "correto":
+                                            break
+                                        if validacao == "incorreto":
+                                            continue
 
-                                dataFormatada = formatacao(data)
-                                if os.path.exists(f"Treino{num}{dataFormatada}.txt"):
-                                    print("Já existe um arquivo com essas informações,redigite os dados!")
-                                    continue
+                                    treinos["Data"] = data
+                                    distanciaPercorrida = float(input("Digite a distancia percorrida (KM): "))
+                                    treinos["DistanciaPercorrida"] = distanciaPercorrida
+                                    tempo = int(input("Digite o tempo em minutos que você levou para concluir essa competição: "))
+                                    treinos["Tempo"] = tempo
+                                    localizacao = input("Digite a localizacao da sua competição: ")
+                                    treinos["Localizacao"] = localizacao
+                                    condicoesClimaticas = input("Digite as condições climaticas na hora do treino/competição: ")
+                                    treinos["CondicoesClimaticas"] = condicoesClimaticas
+                                    nomeCOMP = input('Digite o nome da competição: ')
+                                    treinos["nomeCOMP"] = nomeCOMP
+                                    
+                                    criarCOMP(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas, nomeCOMP,num) 
 
-                                if validacao == 'correto':
-                                    break
-                                if validacao == 'incorreto':
-                                    continue
-
-                            treinos["Data"] = data
-                            distanciaPercorrida = float(input("Digite a distancia percorrida (KM): "))
-                            treinos["DistanciaPercorrida"] = distanciaPercorrida
-                            tempo = int(input("Digite o tempo em minutos que você levou para concluir essa competição: "))
-                            treinos["Tempo"] = tempo
-                            localizacao = input("Digite a localizacao da sua competição: ")
-                            treinos["Localizacao"] = localizacao
-                            condicoesClimaticas = input("Digite as condições climaticas na hora do treino/competição: ")
-                            treinos["CondicoesClimaticas"] = condicoesClimaticas
-                            nomeCOMP = input('Digite o nome da competição: ')
-                            treinos["nomeCOMP"] = nomeCOMP
-                            
-                            criarCOMP(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoesClimaticas, nomeCOMP,num) 
-
-                        except ValueError:
-                            print("Você digitou um número errado, por favor digite novamente!")
-
-                        limparTela()
+                                except ValueError:
+                                    print("Você digitou um número errado, por favor digite novamente!")
+                        break
+                limparTela()
 
             case 2:
-                op = int(input("Você deseja visualizar [1]treinos ou [2]competições: "))
-                os.system("cls")
+                while True:
+                    op = int(input("Você deseja visualizar [1]treinos ou [2]competições: "))
+                    if op != 1 and op != 2:
+                        print("Opção invalida! por favor digite novamente")
+                    else:
 
-                match op:
-                    
-                    case 1:
+                        os.system("cls")
+                        match op:
+                            case 1:
+                                while True:
+                                    filtro = input("Você deseja filtrar na hora da visualização de seus treinos (Sim/Nao)? ").lower()
 
-                        while True:
-                            filtro = input("Você deseja filtrar na hora da visualização de seus treinos (Sim/Nao)? ").lower()
+                                    arquivosTreinos = selecionartudo("Treino", ".txt", ".")
 
-                            arquivosTreinos = selecionartudo("Treino", ".txt", ".")
+                                    if filtro == "nao" or filtro == "não":
+                                        leitura(arquivosTreinos)
+                                        break
 
-                            if filtro == "nao" or filtro == "não":
-                                leitura(arquivosTreinos)
-                                limparTela()
-                                break
+                                    elif filtro == "sim":
+                                        criterio = int(input("Você deseja filtrar por distancia ou tempo? Digite 1 ou 2, respectivamente: "))
+                                        
+                                        if criterio == 1:
+                                            distanciaFiltro = float(input("Digite a distancia mínima para filtrar (em km): "))
+                                            leituraFiltrada(distanciaFiltro, arquivosTreinos, "Distancia percorrida:", "km")
 
-                            elif filtro == "sim":
-                                criterio = int(input("Você deseja filtrar por distancia ou tempo? Digite 1 ou 2, respectivamente: "))
-                                
-                                if criterio == 1:
-                                    distanciaFiltro = float(input("Digite a distancia mínima para filtrar (em km): "))
-                                    leituraFiltrada(distanciaFiltro, arquivosTreinos, "Distancia percorrida:", "km")
+                                        elif criterio == 2:
+                                            tempoFiltro = int(input("Digite a o tempo mínimo para filtrar (em min): "))
 
-                                elif criterio == 2:
-                                    tempoFiltro = int(input("Digite a o tempo mínimo para filtrar (em min): "))
+                                            leituraFiltrada(tempoFiltro, arquivosTreinos, "Tempo:", "min")
 
-                                    leituraFiltrada(tempoFiltro, arquivosTreinos, "Tempo:", "min")
-
-                                else:
-                                    print("Opção invalida, por favor digite novamente!!")
-                                break
-                            
-                            else: 
-                                print("Opção invalida, por favor, digite-a corretamente!")
-                            
-                
-                    case 2:
-
-                        while True:
-                                filtro = input("Você deseja filtrar na hora da visualização das suas competições (Sim/Nao)? ").lower()
-
-                                arquivosTreinos = selecionartudo("Competição", ".txt", ".")
-
-                                if filtro == "nao" or filtro == "não":
-                                    leitura(arquivosTreinos)
-                                    limparTela()
-                                    break
-
-                                elif filtro == "sim":
-                                    criterio = int(input("Você deseja filtrar por distancia ou tempo? Digite 1 ou 2, respectivamente: "))
+                                        else:
+                                            print("Opção invalida, por favor digite novamente!!")
+                                        break
                                     
-                                    if criterio == 1:
-                                        distanciaFiltro = float(input("Digite a distancia mínima para filtrar (em km): "))
-                                        leituraFiltrada(distanciaFiltro, arquivosTreinos, "Distancia percorrida:", "km")
+                                    else: 
+                                        print("Opção invalida, por favor, digite-a corretamente!")
+                                    
+                        
+                            case 2:
+                                while True:
+                                        filtro = input("Você deseja filtrar na hora da visualização das suas competições (Sim/Nao)? ").lower()
 
-                                    elif criterio == 2:
-                                        tempoFiltro = int(input("Digite a o tempo mínimo para filtrar (em min): "))
+                                        arquivosTreinos = selecionartudo("Competição", ".txt", ".")
 
-                                        leituraFiltrada(tempoFiltro, arquivosTreinos, "Tempo:", "min")
+                                        if filtro == "nao" or filtro == "não":
+                                            leitura(arquivosTreinos)
+                                            break
 
-                                    else:
-                                        print("Opção invalida, por favor digite novamente!!")
-                                    break
+                                        elif filtro == "sim":
+                                            criterio = int(input("Você deseja filtrar por distancia ou tempo? Digite 1 ou 2, respectivamente: "))
+                                            
+                                            if criterio == 1:
+                                                distanciaFiltro = float(input("Digite a distancia mínima para filtrar (em km): "))
+                                                leituraFiltrada(distanciaFiltro, arquivosTreinos, "Distancia percorrida:", "km")
 
-                                else: 
-                                    print("Opção invalida, por favor, digite-a corretamente!")
-                    
+                                            elif criterio == 2:
+                                                tempoFiltro = int(input("Digite a o tempo mínimo para filtrar (em min): "))
+
+                                                leituraFiltrada(tempoFiltro, arquivosTreinos, "Tempo:", "min")
+
+                                            else:
+                                                print("Opção invalida, por favor digite novamente!!")
+                                            break
+
+                                        else: 
+                                            print("Opção invalida, por favor, digite-a corretamente!")
+
+                        break      
+
                 limparTela()
                                 
             case 3:
-                op = int(input("Você deseja alterar um [1]treino ou [2]competição:"))
-                match op:
-                    case 1:
-                        os.system("cls")
-                        while True:        
-                            dataArquivo = input("Digite a data do treino que você deseja alterar: ")
-                            validacao = verificarData(dataArquivo)
-                            num=int(input("Digite o número do treino: "))
+                while True:
+                    op = int(input("Você deseja alterar um [1]treino ou [2]competição: "))
+                    if op != 1 and op != 2:
+                        print("Opção invalida! por favor digite novamente")
+                    else:
+                        match op:
+                            case 1:
+                                os.system("cls")
+                                while True:        
+                                    dataArquivo = input("Digite a data do treino que você deseja alterar: ")
+                                    validacao = verificarData(dataArquivo)
+                                    num=int(input("Digite o número do treino: "))
 
-                            if validacao == 'correto':
-                                break
+                                    if validacao == "correto":
+                                        break
 
-                            if validacao == 'incorreto':
-                                continue
-                        
-                        dataArquivo = formatacao(dataArquivo)
-                        nomeArquivo = f"Treino{num}{dataArquivo}.txt"
-                        if os.path.isfile(nomeArquivo):
+                                    if validacao == "incorreto":
+                                        continue
+                                
+                                dataArquivo = formatacao(dataArquivo)
+                                nomeArquivo = f"Treino{num}{dataArquivo}.txt"
+                                if os.path.isfile(nomeArquivo):
 
-                            print(f"""
+                                    print(f"""
 {("="*70)}
 Digite [1] para alterar a data
 Digite [2] para alterar a distancia percorrida
@@ -531,74 +538,74 @@ Digite [3] para alterar o tempo
 Digite [4] para alterar a localização
 Digite [5] para alterar as condições climaticas
 {("="*70)}""")
-                            opcaoAtualizar = int(input("Digite a opção que você deseja alterar: "))
+                                    opcaoAtualizar = int(input("Digite a opção que você deseja alterar: "))
 
-                            conteudo = lerArquivo(nomeArquivo)
+                                    conteudo = lerArquivo(nomeArquivo)
 
-                            match opcaoAtualizar:
-                                case 1:
-                                    while True:
-                                        novaData = input("Digite a nova data: ")
-                                        validacao = verificarData(novaData)
+                                    match opcaoAtualizar:
+                                        case 1:
+                                            while True:
+                                                novaData = input("Digite a nova data: ")
+                                                validacao = verificarData(novaData)
+                                                
+                                                if validacao == "correto":
+                                                    break
+
+                                                if validacao == "incorreto":
+                                                    continue    
+                                            
+                                            conteudo = atualizar(conteudo, "Data: ", novaData, "")
+
+                                        case 2: 
+                                            novaDistanciaPercorrida = float(input("Digite a nova distancia percorrida: "))
+                                            
+                                            conteudo = atualizar(conteudo, "Distancia percorrida: ", novaDistanciaPercorrida, "km")
+
+                                        case 3: 
+                                            novoTempo = int(input("Digite o novo tempo: "))
+
+                                            conteudo = atualizar(conteudo, "Tempo: ", novoTempo, "min")
                                         
+                                        case 4:
+                                            novaLocalizacao = input("Digite a nova localização: ")
+                                            
+                                            conteudo = atualizar(conteudo, "Localização: ", novaLocalizacao, "")
+                                        
+                                        case 5:
+                                            novaCondicaoClimatica = input("Digite uma nova condição climatica: ")
+                                            
+                                            conteudo = atualizar(conteudo, "Condições climaticas: ", novaCondicaoClimatica, "")
+                                    
+                                    atualizarArquivo(nomeArquivo, conteudo)
+
+                                    if opcaoAtualizar == 1:
+                                        os.rename(nomeArquivo, f"Treino{formatacao(novaData)}.txt")
+
+                                    print("Alteração realizada com sucesso!")
+                                
+                                else:
+                                    print("Arquivo não localizado, por favor tente novamente")
+                            
+                                limparTela()
+                            
+                            case 2:
+                                os.system("cls")
+                                while True: 
+                                        dataArquivo = input("Digite a data da competição que você deseja alterar: ")
+                                        validacao = verificarData(dataArquivo)
+                                        num=int(input("Digite o número da competição: "))
+
                                         if validacao == 'correto':
                                             break
 
                                         if validacao == 'incorreto':
-                                            continue    
-                                    
-                                    conteudo = atualizar(conteudo, "Data: ", novaData, "")
+                                            continue
 
-                                case 2: 
-                                    novaDistanciaPercorrida = float(input("Digite a nova distancia percorrida: "))
-                                    
-                                    conteudo = atualizar(conteudo, "Distancia percorrida: ", novaDistanciaPercorrida, "km")
+                                dataArquivo = formatacao(dataArquivo)
+                                nomeArquivo = f"Competição{num}{dataArquivo}.txt"
+                                if os.path.isfile(nomeArquivo):
 
-                                case 3: 
-                                    novoTempo = int(input("Digite o novo tempo: "))
-
-                                    conteudo = atualizar(conteudo, "Tempo: ", novoTempo, "min")
-                                
-                                case 4:
-                                    novaLocalizacao = input("Digite a nova localização: ")
-                                    
-                                    conteudo = atualizar(conteudo, "Localização: ", novaLocalizacao, "")
-                                
-                                case 5:
-                                    novaCondicaoClimatica = input("Digite uma nova condição climatica: ")
-                                    
-                                    conteudo = atualizar(conteudo, "Condições climaticas: ", novaCondicaoClimatica, "")
-                            
-                            atualizarArquivo(nomeArquivo, conteudo)
-
-                            if opcaoAtualizar == 1:
-                                os.rename(nomeArquivo, f"Treino{formatacao(novaData)}.txt")
-
-                            print("Alteração realizada com sucesso!")
-                        
-                        else:
-                            print("Arquivo não localizado, por favor tente novamente")
-                    
-                        limparTela()
-                    
-                    case 2:
-                        os.system("cls")
-                        while True: 
-                                dataArquivo = input("Digite a data da competição que você deseja alterar: ")
-                                validacao = verificarData(dataArquivo)
-                                num=int(input("Digite o número da competição: "))
-
-                                if validacao == 'correto':
-                                    break
-
-                                if validacao == 'incorreto':
-                                    continue
-
-                        dataArquivo = formatacao(dataArquivo)
-                        nomeArquivo = f"Competição{num}{dataArquivo}.txt"
-                        if os.path.isfile(nomeArquivo):
-
-                            print(f"""
+                                    print(f"""
 {("="*70)}
 Digite [1] para alterar a data
 Digite [2] para alterar a distancia percorrida
@@ -607,61 +614,63 @@ Digite [4] para alterar a localização
 Digite [5] para alterar as condições climaticas
 Digite [6] para alterar o nome da competição
 {("="*70)}""")
-                            opcaoAtualizar = int(input("Digite a opção que você deseja alterar: "))
+                                    opcaoAtualizar = int(input("Digite a opção que você deseja alterar: "))
 
-                            conteudo = lerArquivo(nomeArquivo)
+                                    conteudo = lerArquivo(nomeArquivo)
 
-                            match opcaoAtualizar:
-                                case 1:
-                                    while True:
-                                        novaData = input("Digite a nova data: ")
-                                        validacao = verificarData(novaData)
+                                    match opcaoAtualizar:
+                                        case 1:
+                                            while True:
+                                                novaData = input("Digite a nova data: ")
+                                                validacao = verificarData(novaData)
+                                                
+                                                if validacao == 'correto':
+                                                    break
+
+                                                if validacao == 'incorreto':
+                                                    continue    
+                                            
+                                            conteudo = atualizar(conteudo, "Data: ", novaData, "")
+
+                                        case 2: 
+                                            novaDistanciaPercorrida = float(input("Digite a nova distancia percorrida: "))
+                                            
+                                            conteudo = atualizar(conteudo, "Distancia percorrida: ", novaDistanciaPercorrida, "km")
+
+                                        case 3: 
+                                            novoTempo = int(input("Digite o novo tempo: "))
+
+                                            conteudo = atualizar(conteudo, "Tempo: ", novoTempo, "min")
                                         
-                                        if validacao == 'correto':
-                                            break
+                                        case 4:
+                                            novaLocalizacao = input("Digite a nova localização: ")
+                                            
+                                            conteudo = atualizar(conteudo, "Localização: ", novaLocalizacao, "")
+                                        
+                                        case 5:
+                                            novaCondicaoClimatica = input("Digite uma nova condição climatica: ")
+                                            
+                                            conteudo = atualizar(conteudo, "Condições climaticas: ", novaCondicaoClimatica, "")
+                                        
+                                        case 6:
+                                            novoNomeCOMP = input("Digite o nome correto da competição: ")
 
-                                        if validacao == 'incorreto':
-                                            continue    
+                                            conteudo = atualizar(conteudo, "Nome da Competição: ", novoNomeCOMP, "")
+
                                     
-                                    conteudo = atualizar(conteudo, "Data: ", novaData, "")
+                                    atualizarArquivo(nomeArquivo, conteudo)
 
-                                case 2: 
-                                    novaDistanciaPercorrida = float(input("Digite a nova distancia percorrida: "))
-                                    
-                                    conteudo = atualizar(conteudo, "Distancia percorrida: ", novaDistanciaPercorrida, "km")
+                                    if opcaoAtualizar == 1:
+                                        os.rename(nomeArquivo, f"Competição{formatacao(novaData)}.txt")
 
-                                case 3: 
-                                    novoTempo = int(input("Digite o novo tempo: "))
-
-                                    conteudo = atualizar(conteudo, "Tempo: ", novoTempo, "min")
+                                    print("Alteração realizada com sucesso!")
                                 
-                                case 4:
-                                    novaLocalizacao = input("Digite a nova localização: ")
-                                    
-                                    conteudo = atualizar(conteudo, "Localização: ", novaLocalizacao, "")
-                                
-                                case 5:
-                                    novaCondicaoClimatica = input("Digite uma nova condição climatica: ")
-                                    
-                                    conteudo = atualizar(conteudo, "Condições climaticas: ", novaCondicaoClimatica, "")
-                                
-                                case 6:
-                                    novoNomeCOMP = input("Digite o nome correto da competição: ")
-
-                                    conteudo = atualizar(conteudo, "Nome da Competição: ", novoNomeCOMP, "")
-
+                                else:
+                                    print("Arquivo não localizado, por favor tente novamente")
                             
-                            atualizarArquivo(nomeArquivo, conteudo)
+                        break
 
-                            if opcaoAtualizar == 1:
-                                os.rename(nomeArquivo, f"Competição{formatacao(novaData)}.txt")
-
-                            print("Alteração realizada com sucesso!")
-                        
-                        else:
-                            print("Arquivo não localizado, por favor tente novamente")
-                    
-                        limparTela()
+                limparTela()
 
             case 4:
                 os.system("cls")
@@ -687,46 +696,45 @@ Digite [6] para alterar o nome da competição
             case 5:
                 os.system("cls")
                 while True:
-                    opção=input(f"""
+                    opcao=input(f"""
 {("="*70)}
 Digite [1] para criar uma meta
 Digite [2] para ler as metas atuais
 Digite [3] para marcar uma meta como conluida
 Digite [4] para ver as metas concluidas
 Digite [5] para voltar para o menu principal
-{("="*70)}\nDigite o que deseja fazer:""")
+{("="*70)}\nDigite o que deseja fazer: """)
 
-                    if(opção=='1'):
+                    if(opcao=="1"):
                         os.system("cls")    
-                        data=str(input("Digite a data em que a meta foi criada:"))
                         while True:  
-                            data=str(input("Digite a data em que a meta foi criada:"))
+                            data=str(input("Digite a data em que a meta foi criada: "))
                             validacao = verificarData(data)
 
-                            if validacao == 'correto':
+                            if validacao == "correto":
                                 break
 
-                            if validacao == 'incorreto':
+                            if validacao == "incorreto":
                                 continue  
 
-                        meta=str(input("Digite sua meta:"))
+                        meta=str(input("Digite sua meta: "))
                         cadastroMetas(data,meta)
                     
-                    elif(opção=='2'):
+                    elif(opcao=="2"):
                         os.system("cls")
                         lerMetas()
                     
-                    elif(opção=='3'):
+                    elif(opcao=="3"):
                         os.system("cls")
                         lerMetas()
-                        num=int(input("Digite o numero da meta que deseja marcar como concluida:"))
+                        num=int(input("Digite o numero da meta que deseja marcar como concluida: "))
                         concluirmeta(num)
                     
-                    elif(opção=='4'):
+                    elif(opcao=="4"):
                         os.system("cls")
                         lermetasconcluidas()
                     
-                    elif(opção=='5'):
+                    elif(opcao=="5"):
                         os.system("cls")
                         break
                     

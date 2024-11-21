@@ -18,27 +18,37 @@ Nosso projeto tem as características do **CRUD**, que seria:
 
 ### Funcionalidades:
 
-1. **Registrar Treinos e Competições**:
+1. **Registrar Treinos e Competições:**
     O usuário pode adicionar registros de treinos e competições com informações como data, distância percorrida, tempo gasto, localização e condições climáticas.
 
-2. **Visualizar Registros**:
+2. **Visualizar Registros:**
    O usuário pode visualizar os treinos e competições registrados, com a opção de filtrar por distância ou tempo.
 
-3. **Atualizar Registros**:
+3. **Atualizar Registros:**
    É possível editar os registros de treinos ou competições, atualizando informações como data, distância, tempo, localizações e condições climáticas.
 
-4. **Excluir Registros**:
+4. **Excluir Registros:**
    O sistema permite a exclusão de registros de treinos e competições, caso o usuário não precise mais dessas informações.
 
-5. **Gerenciamento de Metas**:
+5. **Gerenciamento de Metas:**
    O usuário pode **adicionar** e **visualizar** metas relacionadas aos seus treinos, como alcançar distâncias ou tempos específicos.
 
-6. **Treinos Aleatorios**:
+6. **Treinos Aleatorios:**
    O Usuário terá a possibilidade de selecionar uma opção que pede ao sistema para sugerir treinos aléatorios já programados pelo desenvolvedores,  podendo assim ajudalo no desenvolvimento do seus treinos.
-7. **Relatórios Visuais**:
+7. **Relatórios Visuais:**
    Uma funcionalidade extra do CRUD é a geração de gráficos que mostram a evolução do usuário em termos de distância percorrida e tempo. Isso ajuda o atleta a monitorar seu progresso ao longo do tempo.
 
 ---
+
+### Pré Requisitos do Sistema
+
+- Baixe o [Python](https://www.python.org/)
+
+- Instale a biblioteca matplotlib
+```powershell
+pip install matplotlib
+```
+
 
 ### Como Funciona o Sistema?:
 
@@ -51,7 +61,7 @@ A interface do programa é bem simples e fácil de usar, guiando o usuário por 
 **Exemplo de como fica o gráfico 2:**
 ![img do CRUD](img/grafico2.png/)
 
-**Exemplo de como fica os arquivos.txt na Pasta: **
+**Exemplo de como fica os arquivos.txt na Pasta:**
 
 ![img do CRUD](img/opa.png/)
 
@@ -64,7 +74,11 @@ Pretendemos garantir uma forma inovadora e mais intuitiva ao usuário, que por m
 ![img do CRUD](img/images.jpg/)
 
 
+### Fluxograma
 
+obs: crie uma conta do miro para acessar o nosso fluxograma
+
+[Fluxograma No Miro](https://miro.com/app/board/uXjVLCUOxGc=/?share_link_id=977985241852)
 
 ---
 

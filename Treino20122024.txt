@@ -1,5 +1,0 @@
-Data: 20/12/2024
-Distancia percorrida: 2.0km
-Tempo: 2min
-Localização: 2
-Condições climaticas: 2

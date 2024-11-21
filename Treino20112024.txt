@@ -1,5 +1,0 @@
-Data: 20/11/2024
-Distancia percorrida: 20.0km
-Tempo: 20min
-Localização: 20
-Condições climaticas: 20
