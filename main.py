@@ -39,7 +39,6 @@ def criar(dataFormatada, data, distanciaPercorrida, tempo, localizacao, condicoe
         print("Já existe um arquivo para essa data.")
 
         data = input("Digite a data do seu treino (DD/MM/YYYY): ")
-        # validacao = verificarData(data)
         num=int(input("Digite outro número para o treino: "))
         dataFormatada = formatacao(data)
 
@@ -60,7 +59,6 @@ def criarCOMP(dataFormatada, data, distanciaPercorrida, tempo, localizacao, cond
         print("Já existe um arquivo para essa data.")
 
         data = input("Digite a data do seu treino (DD/MM/YYYY): ")
-        # validacao = verificarData(data)
         num=int(input("Digite outro número para a competição: "))
         dataFormatada = formatacao(data)
 
